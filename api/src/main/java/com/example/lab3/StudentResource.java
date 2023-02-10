@@ -20,7 +20,7 @@ public class StudentResource {
     private String readFileContents(String filename) {
 
         String fp = StudentResource.class.getResource(filename).toString();
-        fp = fp.substring(fp.indexOf('/'));
+        fp = fp.substring(fp.indexOf('/') + 1);
 
         try {
             java.nio.file.Path file = java.nio.file.Path.of(fp);
