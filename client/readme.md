@@ -15,7 +15,7 @@ You'll need to copy over the files:
 
 >It's recommeded to do this after modifying your lab 3 code.
 
-The type of data you'll use for this lab is your JSON data (`students.json`), you'll need to modify your functions accordingly.
+The type of data you'll use for this lab is your JSON data (`students.json`), you'll need to modify your javascript accordingly.
 
 On page load, this website should:
 
@@ -23,8 +23,11 @@ On page load, this website should:
 2. retrieve the data
 3. append it to the table `#chart`
 
-If there is an error requesting to your API then your website should append a `<tr>` to the table that contains a message
-about an error occurring e.g., "Oops, there was an error"
-
 >The default endpoint for your API should be:  
 >`http://localhost:8080/lab3-1.0/api/students/json`
+
+You can change the function which is bound to your `button#submit`, as long as the original functionality of the website remains.  
+The autograding tests to see if the data appears, not the steps it took to appear.
+
+>This is optional, but it is best practice to separate the logic of data retrieval and data rendering from the `add_record()` function into smaller functions.  
+>This will make your code scalable and extensible.
