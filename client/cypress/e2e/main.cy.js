@@ -2,20 +2,149 @@
  * this is the testing file for Cypress, DO NOT TOUCH
  */
 
-describe("Testing the student's HTML page", () => {
+import rgbHex from "rgb-hex";
+
+describe("testing the student's HTML page", () => {
   /**
-   * need to test how the student's website handles API information
-   * - stubbing any request to http://localhost with students.json
-   *
-   * tests
-   * - if there's an error with the API there should be at least one <tr> present in the table
-   * - if there is no error, then there should be 6 <tr>s in the table
-   * - existing functionality should still work too
-   *   - adding a <tr> should still work (there will be 7)
-   *   - if one of the fields is empty then there should only be 6 (not a 7th)
+   * need tests for:
+   * CSS
+   * - the <th>s should have classes and should be tested for their background-color
+   * - the div should:
+   *   - display: flex;
+   *   - flex-direction: row;
+   * HTML
+   * - there should be a table
+   *  - it should have three columns
+   * - there should be three inputs & one button in a div
+   *  - these should have ids
+   * JS
+   * - the button#submit should:
+   *  - append a new tr to the tbody of the table with the data inputted
+   *  - it should do NOTHING if one of the fields is empty
    */
 
-  context("testing API calls", () => {});
+  beforeEach("Reading the HTML file", () => {
+    // connecting to the file
+    cy.visit("./index.html");
+  });
 
-  context("testing website functionality", () => {});
+  context("testing the HTML", () => {
+    it("testing the table headers", () => {
+      // they should have headers
+      cy.get("table#chart > thead > tr > th").should("have.length", 3);
+
+      // they should be in a certain order
+      const ordering = ["name", "id", "gpa"];
+
+      cy.get("table#chart > thead > tr > th").then((ths) => {
+        for (const index in [0, 1, 2]) {
+          expect(ths[index].innerText.toLowerCase()).to.eq(ordering[index]);
+        }
+      });
+    });
+
+    it("testing for ids", () => {
+      /// testing the ids of the inputs
+      cy.get("div > input#name").should("exist");
+      cy.get("div > input#gpa").should("exist");
+      cy.get("div > input#id").should("exist");
+      cy.get("div > button#submit").should("exist");
+      cy.get("table#chart").should("exist");
+    });
+
+    it("testing the attributes of the input tags", () => {
+      cy.get("div > input#name")
+        .should("have.attr", "placeholder")
+        .then((text) => {
+          expect(text.toLowerCase()).to.eq("name");
+        });
+      cy.get("div > input#gpa")
+        .should("have.attr", "placeholder")
+        .then((text) => {
+          expect(text.toLowerCase()).to.eq("gpa");
+        });
+      cy.get("div > input#id")
+        .should("have.attr", "placeholder")
+        .then((text) => {
+          expect(text.toLowerCase()).to.eq("id");
+        });
+    });
+  });
+
+  context("testing the page's CSS", () => {
+    context("testing table headers", () => {
+      [
+        { class: "green", column: "name", color: "00ff00" },
+        { class: "blue", column: "gpa", color: "0000ff" },
+        { class: "red", column: "id", color: "ff0000" },
+      ].map((header) => {
+        return it(`th.${header.column} should have background-color: #${header.color}`, () => {
+          cy.get(`table#chart > thead > tr > th.${header.class}`)
+            .should("have.text", header.column)
+            .invoke("css", "background-color")
+            .then((bgcolor) => {
+              expect(rgbHex(bgcolor)).to.eq(header.color);
+            });
+        });
+      });
+    });
+
+    it("testing `div.row`", () => {
+      cy.get("div.row")
+        .should("have.css", "display", "flex")
+        .and("have.css", "flex-direction", "row");
+    });
+  });
+
+  context("testing the page's JS", () => {
+    const mapping = ["input#name", "input#id", "input#gpa"];
+    const data = ["fort nite", "100000000", "4.3"];
+
+    it("function should append data properly", () => {
+      // setting the values
+      for (const index in [0, 1, 2]) {
+        cy.get(mapping[index]).type(data[index]);
+      }
+
+      // clicking the button
+      cy.get("button#submit").click();
+
+      // inspecting the table
+      cy.get("#chart > tbody > tr")
+        .should("have.length", 1) // TRs: default & inputted
+        .find("td")
+        .should("have.length", 3)
+        // the TDs should have data in specific indices
+        .then(($tds) => {
+          for (const index in [0, 1, 2])
+            cy.wrap($tds[index].innerText).should("be.eq", data[index]);
+        });
+    });
+
+    context("function should do nothing if a field is empty", () => {
+      mapping.map((el) => {
+        return it(`should do nothing if ${el} is empty`, () => {
+          for (const index in mapping) {
+            // skipping this index
+            if (el === mapping[index]) continue;
+
+            // typing into the inputs
+            cy.get(mapping[index]).type(data[index]);
+          }
+
+          // the button shouldn't do anything
+          cy.get("button#submit")
+            .click()
+            .get("table#chart > tbody")
+            .children()
+            .should("have.length", 0);
+
+          // clearing inputs
+          for (const el of mapping) {
+            cy.get(el).clear();
+          }
+        });
+      });
+    });
+  });
 });
