@@ -12,7 +12,7 @@ The data files are given to you for this lab.
 
 ## Modifications
 
-You'll need to modify your endpoints from lab 3.  
+You'll need to modify all of your existing endpoints from this lab.  
 Instead of returning a `String`, you need to return a `Response` object which should...
 
 1. contain the data from the file (e.g., `students.json`)
@@ -21,4 +21,8 @@ Instead of returning a `String`, you need to return a `Response` object which sh
    2. have CORS enabled `"Access-Control-Allow-Origin"`, you will have to set the proper origin (e.g., `http://localhost:8448/`)
 3. have the status code `200`
 
-This returns a proper HTTP response instead of just a `String` and allows you to set other relevant HTTP headers.
+>In lab 3 you were never actually returning a `String` to the website, if you check the developer tools of your browser
+>you'll see that a proper HTTP response was sent from Glassfish to the browser that contains the proper information.  
+>
+>You are doing the same thing in this lab, instead of having Glassfish take care of it for you, you are making your own HTTP
+>response and tailoring it to what its function is.

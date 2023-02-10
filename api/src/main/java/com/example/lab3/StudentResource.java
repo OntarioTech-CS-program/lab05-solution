@@ -2,7 +2,7 @@ package com.example.lab3;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Response;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,9 +19,8 @@ public class StudentResource {
      */
     private String readFileContents(String filename) {
 
-        String fp = StudentResource.class.getResource(filename)
-                .toString()
-                .replaceAll(" ", "\\ ");
+        String fp = StudentResource.class.getResource(filename).toString();
+        fp = fp.substring(fp.indexOf('/'));
 
         try {
             java.nio.file.Path file = java.nio.file.Path.of(fp);
@@ -29,29 +28,43 @@ public class StudentResource {
         } catch (IOException e) {
             // something went wrong
             return "Did you forget to create the file?\n" +
-                    "Is the file in the right location?\n" +
-                    e.toString();
+                    "Is the file in the right location?\n" + e;
         }
     }
 
     @GET
     @Path("/json")
-    @Produces("application/json")
-    public String json() {
-        return this.readFileContents("/students.json");
+    public Response json() {
+        String content = this.readFileContents("/students.json");
+
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Content-Type", "application/json")
+                .entity(content)
+                .build();
     }
 
     @GET
     @Path("/csv")
-    @Produces("text/csv")
-    public String csv() {
-        return this.readFileContents("/students.csv");
+    public Response csv() {
+        String content = this.readFileContents("/students.json");
+
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Content-Type", "text/csv")
+                .entity(content)
+                .build();
     }
 
     @GET
     @Path("/xml")
-    @Produces("application/xml")
-    public String xml() {
-        return this.readFileContents("/students.xml");
+    public Response xml() {
+        String content = this.readFileContents("/students.json");
+
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Content-Type", "application/xml")
+                .entity(content)
+                .build();
     }
 }

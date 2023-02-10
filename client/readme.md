@@ -27,4 +27,4 @@ If there is an error requesting to your API then your website should append a `<
 about an error occurring e.g., "Oops, there was an error"
 
 >The default endpoint for your API should be:  
->`http://localhost:8080/lab3-1.0/students/json`
+>`http://localhost:8080/lab3-1.0/api/students/json`

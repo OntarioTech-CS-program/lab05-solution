@@ -32,6 +32,7 @@ lab 5
 	...
 ```
 
-The page's existing functionality should still remain but whenever the page loads, it should make an HTTP request to your API to populate the table.
+The page's existing functionality should still remain but whenever the page loads,
+it should make an HTTP request to your API to populate the table.
 
 >See the `readme.md` files in both subdirectories on how to properly modify your lab.
