@@ -10,6 +10,8 @@ You'll need to copy over:
 
 The data files are given to you for this lab.
 
+> Tip: before you start working on the modifications, make sure your API still executes properly. After, you ensure your Lab 03 version is working, you can focus on the modification for this lab.
+
 ## Modifications
 
 You'll need to modify all of your existing endpoints from this lab.  
@@ -18,7 +20,7 @@ Instead of returning a `String`, you need to return a `Response` object which sh
 1. contain the data from the file (e.g., `students.json`)
 2. contain the headers:
    1. have the corresponding `Content-Type` header to the file you're serving
-   2. have CORS enabled `"Access-Control-Allow-Origin"`, you will have to set the proper origin (e.g., `http://localhost:8448/`)
+   2. have CORS enabled `"Access-Control-Allow-Origin"`, you will have to set the proper origin (e.g., `http://localhost:8448/` - the address of your client-side server)
 3. have the status code `200`
 
 >In lab 3 you were never actually returning a `String` to the website, if you check the developer tools of your browser
