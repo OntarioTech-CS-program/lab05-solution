@@ -10,7 +10,7 @@ You'll need to copy over:
 
 The data files are given to you for this lab.
 
-> Tip: before you start working on the modifications, make sure your API still executes properly. After, you ensure your Lab 03 version is working, you can focus on the modification for this lab.
+> Tip: before you start working on the modifications, make sure your API still executes properly. After, you ensure your Lab 03 version is working in this project (lab 05), you can focus on the modification for this lab.
 
 ## Modifications
 
