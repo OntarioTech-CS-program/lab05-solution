@@ -13,7 +13,7 @@ You'll need to copy over the files:
 
 ## Modifications
 
->It's recommeded to do this after modifying your lab 3 code.
+>It's recommended to do this after modifying your lab 3 code.
 
 The type of data you'll use for this lab is your JSON data (`students.json`), you'll need to modify your javascript accordingly.
 
@@ -24,7 +24,7 @@ On page load, this website should:
 3. append it to the table `#chart`
 
 >The default endpoint for your API should be:  
->`http://localhost:8080/lab3-1.0/api/students/json`
+>`http://localhost:8080/lab5-1.0/api/students/json`
 
 You can change the function which is bound to your `button#submit`, as long as the original functionality of the website remains.  
 The autograding tests to see if the data appears, not the steps it took to appear.
