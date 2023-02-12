@@ -1,33 +1,45 @@
 # Client (Lab 4 - Basic HTML Website)
 
-Using built-in methods, your website will communicate with your API to retrieve data.
-
-## Prerequisites
-
-You'll need to copy over the files:
-
-- `index.html`
-  - remove the `<tr>` in your `<tbody>`, this is duplicate data since it exists in your `students.json` file
-- `css/styles.css`
-- `js/main.js`
+This is the solution for the website portion of this lab.
 
 ## Modifications
 
->It's recommended to do this after modifying your lab 3 code.
+Students will need to copy over the following files from their lab 4:
 
-The type of data you'll use for this lab is your JSON data (`students.json`), you'll need to modify your javascript accordingly.
+- `index.html`
+- `css/styles.css`
+- `js/main.js`
 
-On page load, this website should:
+>The student needs to remove the default `<tr>` in their `index.html` file because this is duplicate
+>data.
 
-1. automatically make an HTTP request your API
-2. retrieve the data
-3. append it to the table `#chart`
+The main modifications will be in their `main.js` file, they will need to:
 
->The default endpoint for your API should be:  
->`http://localhost:8080/lab5-1.0/api/students/json`
+- use an anonymous JS function which executes onload which:
+  - fetches the data from the Glassfish server
+  - transforms the data into `<tr>`s
+  - outputs the `<tr>`s to the `table#chart > tbody` element
 
-You can change the function which is bound to your `button#submit`, as long as the original functionality of the website remains.  
-The autograding tests to see if the data appears, not the steps it took to appear.
+It should look as follows:
 
->This is optional, but it is best practice to separate the logic of data retrieval and data rendering from the `add_record()` function into smaller functions.  
->This will make your code scalable and extensible.
+[![Solution Website](../sample_website_output.png)](../sample_website_output.png)
+
+## Autograding
+
+There is autograding for the javascript portion of the lab, you can find the tests in `cypress/e2e/*.cy.js`.
+
+The following files test for:
+
+- `main.cy.js`
+  - HTML
+    - asserts that the IDs (`input#name`, `input#gpa`, etc.) should exist
+    - asserts that the `<input>` tags should have placeholder text
+    - asserts that the table headers have the correct text and ordering
+  - CSS
+    - the classes (`red`, `green`, etc) should have their respective color
+    - `div.row` should be a flexbox
+  - JS
+    - asserts that the page renders data correctly and in the correct order
+    - asserts that each field, if empty, the page should do nothing
+- `api.cy.js`
+  - asserts that the page should render the data from the payload in the table

@@ -1,33 +1,57 @@
 # API (Lab 3 - REST API Building 2)
 
-This is your API that will serve content to anyone or anything that accesses your API endpoint.
+This is the solution for the API portion of this lab.
 
-## Prerequisites
-
-You'll need to copy over:
-
-- `StudentResource.java`
-
->You'll need to rename the package from `lab3` to `lab5`.
-
-The data files are given to you for this lab.
-
-> Tip: before you start working on the modifications, make sure your API still executes properly.
-> After, you ensure your Lab 03 version is working in this project (lab 05), you can focus on the modification for this lab.
+>Note that there is no autograding for the Java portion of this lab due to complications
+>with the libraries and implementation of the Jakarta & Glassfish setup.
 
 ## Modifications
 
-You'll need to modify all of your existing endpoints from this lab.  
-Instead of returning a `String`, you need to return a `Response` object which should...
+The students will need to return a `Response` object from the endpoint functions, below is how `StudentResource.java` should look:
 
-1. contain the data from the file (e.g., `students.json`)
-2. contain the headers:
-   1. have the corresponding `Content-Type` header to the file you're serving
-   2. have CORS enabled `"Access-Control-Allow-Origin"`, you will have to set the proper origin (e.g., `http://localhost:8448/` - the address of your client-side server)
-3. have the status code `200`
+```java
+@Path("/students")
+public class StudentResource {
+    
+   /** ... **/
+      
+   @GET
+   @Path("/json")
+   public Response json() {
+      String content = this.readFileContents("/students.json");
 
->In lab 3 you were never actually returning a `String` to the website, if you check the developer tools of your browser
->you'll see that a proper HTTP response was sent from Glassfish to the browser that contains the proper information.
+      return Response.status(200)
+               .header("Access-Control-Allow-Origin", "*")
+               .header("Content-Type", "application/json")
+               .entity(content)
+               .build();
+   }
 
->You are doing the same thing in this lab, instead of having Glassfish take care of it for you, you are making your own HTTP
->response and tailoring it to what its function is.
+   @GET
+   @Path("/csv")
+   public Response csv() {
+      String content = this.readFileContents("/students.csv");
+
+      return Response.status(200)
+               .header("Access-Control-Allow-Origin", "*")
+               .header("Content-Type", "text/csv")
+               .entity(content)
+               .build();
+   }
+
+   @GET
+   @Path("/xml")
+   public Response xml() {
+      String content = this.readFileContents("/students.xml");
+
+      return Response.status(200)
+               .header("Access-Control-Allow-Origin", "*")
+               .header("Content-Type", "application/xml")
+               .entity(content)
+               .build();
+   }
+}
+```
+
+>Note that the CORS header doesn't have to have the `localhost` origin but can have `"*"`,
+>This isn't what the readme says the student should do but is correct.
