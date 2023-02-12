@@ -32,7 +32,6 @@ lab 5
 	...
 - client/ (lab 4)
 	- css/
-	- cypress/
 	- js/
 	- index.html
 	...
@@ -41,6 +40,4 @@ lab 5
 The page's existing functionality should still remain but whenever the page loads,
 it should make an HTTP request to your API to populate the table.
 
-Specific modifications are found in their respective directories `api` and `client`.
-
->See the `readme.md` files in both subdirectories on how to properly modify your lab.
+>See the directions in `api/` and `client/` on how to modify your labs.
