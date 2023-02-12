@@ -9,3 +9,5 @@ This is the solution for [Lab 5](https://github.com/OntarioTech-CS-program/lab05
 ## Grading
 
 See the readme files in both subdirectories to see what should be graded.
+
+>If there are any questions, contact Liam Major.

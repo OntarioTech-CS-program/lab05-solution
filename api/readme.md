@@ -2,8 +2,8 @@
 
 This is the solution for the API portion of this lab.
 
->Note that there is no autograding for the Java portion of this lab due to complications
->with the libraries and implementation of the Jakarta & Glassfish setup.
+>Note that there is no autograding for the Java portion of this lab due to complications  
+>with the libraries and implementation of Jakarta & Glassfish.
 
 ## Modifications
 
@@ -53,5 +53,7 @@ public class StudentResource {
 }
 ```
 
->Note that the CORS header doesn't have to have the `localhost` origin but can have `"*"`,
->This isn't what the readme says the student should do but is correct.
+>Note that the CORS header doesn't have to have the `localhost` origin but can have `"*"`,  
+>the template readme doesn't mention this, but if the student has this it *is* correct.
+>
+>If there are any questions, contact Liam Major.
