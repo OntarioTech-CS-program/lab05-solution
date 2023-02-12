@@ -8,7 +8,13 @@
 
 This is meant to get you acquainted with HTTP requests and how to communicate with an API via a website.
 
-PUT PICTURE OF SOLUTION WEBSITE WORKING
+>Here's what the website should look like:
+
+[![Website](./sample_website_output.png)](./sample_website_output.png)
+
+>Here's what an **example output** of the console should look like:
+
+[![Console Output](./sample_console_output.png)](./sample_console_output.png)
 
 ## Lab Work
 

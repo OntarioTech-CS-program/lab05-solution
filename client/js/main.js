@@ -95,15 +95,20 @@ function wrap(tag, data) {
   return `<${tag}>${data}</${tag}>`;
 }
 
+const URL = "http://localhost:8080/lab5-1.0/api/students/json";
+
 /**
  * anonymous function that executes on script load
  *
  * this is what the students are going to be tested on
  */
 (function () {
-  fetch("http://localhost:8080/lab3-1.0/api/students/json")
+  fetch(URL)
     .then((res) => res.json()) // `.json()` returns a promise, not data
     .then((data) => {
+
+      console.log(`Loaded data from ${URL}: `, data);
+
       // using `in` will not work
       for (const student of data["students"]) {
         // just a wrapper around `add_record()`

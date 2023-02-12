@@ -1,4 +1,4 @@
-package com.example.lab3;
+package com.example.lab5;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package com.example.lab3;
+package com.example.lab5;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
