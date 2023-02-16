@@ -29,6 +29,18 @@ describe("testing the student's HTML page", () => {
 
     // awaiting for load, sometimes it's finicky
     cy.wait(100);
+
+    // setting a fetch error handler
+    cy.on("uncaught:exception", (e) => {
+      if (e.message.includes("NetworkError")) {
+        // page made call to API but failed, ignoring
+        return false;
+      }
+      if (e.message.includes("fetch")) {
+        // page made call to API but failed, ignoring
+        return false;
+      }
+    });
   });
 
   context("testing the HTML", () => {
@@ -46,31 +58,29 @@ describe("testing the student's HTML page", () => {
       });
     });
 
-    it("testing for ids", () => {
-      /// testing the ids of the inputs
-      cy.get("div > input#name").should("exist");
-      cy.get("div > input#gpa").should("exist");
-      cy.get("div > input#id").should("exist");
-      cy.get("div > button#submit").should("exist");
-      cy.get("table#chart").should("exist");
+    context("asserting the IDs of tags", () => {
+      /// mass testing
+      ["input#name", "input#gpa", "input#id", "button#submit"].map((sel) => {
+        return it(`${sel} should exist and be within div.row`, () => {
+          cy.get(`div > ${sel}`).should("exist");
+        });
+      });
+
+      it("table#chart should exist", () => {
+        cy.get("table#chart").should("exist");
+      });
     });
 
-    it("testing the attributes of the input tags", () => {
-      cy.get("div > input#name")
-        .should("have.attr", "placeholder")
-        .then((text) => {
-          expect(text.toLowerCase()).to.eq("name");
+    context("testing the attributes of the input tags", () => {
+      return ["name", "gpa", "id"].map((id) => {
+        return it(`input#${id} should have placeholder "${id}"`, () => {
+          cy.get(`div > input#${id}`)
+            .should("have.attr", "placeholder")
+            .then((text) => {
+              expect(text.toLowerCase()).to.eq(id);
+            });
         });
-      cy.get("div > input#gpa")
-        .should("have.attr", "placeholder")
-        .then((text) => {
-          expect(text.toLowerCase()).to.eq("gpa");
-        });
-      cy.get("div > input#id")
-        .should("have.attr", "placeholder")
-        .then((text) => {
-          expect(text.toLowerCase()).to.eq("id");
-        });
+      });
     });
   });
 
