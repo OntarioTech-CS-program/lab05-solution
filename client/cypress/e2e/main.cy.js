@@ -26,6 +26,9 @@ describe("testing the student's HTML page", () => {
   beforeEach("Reading the HTML file", () => {
     // connecting to the file
     cy.visit("./index.html");
+
+    // awaiting for load, sometimes it's finicky
+    cy.wait(100);
   });
 
   context("testing the HTML", () => {
